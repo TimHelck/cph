@@ -1,0 +1,133 @@
+body {
+  font: 14px/1 sans-serif;
+}
+#root {
+  height: 100%;
+}
+
+h1 {
+	margin: 0;
+	padding: 5px 10px 5px 0;
+}
+
+.gallery > div {
+	background-color: #ffdddd;
+	margin-top: 10px;
+}
+
+.gallery > h1 {
+	font-size:22px;
+	background-color: #ffdddd;
+}
+
+.pictureList {
+	display: flex;
+	flex-direction: column; 
+}
+
+.pictureList div .picture {
+	display: flex !important;
+	flex-direction: column; 
+	padding-leftX: 5px;
+}
+
+.pictureList div .pictureSubSection {
+	display: flex !important;
+	flex-direction: row; 
+	padding-left: 5px;
+}
+
+.pictureData {
+	width:200px;
+	margin: 0 5px 5px 5px;
+}
+
+.pictureData div {
+	margin-bottom: 5px;
+}
+
+.pictureData div.description {
+	overflow: scroll;
+	height: 140px;
+}
+
+.pictureData .display .display { display:inline; }
+.pictureData .edit    .display { display:none; }
+
+.pictureData .display .edit { display:none; }
+.pictureData .edit    .edit { display:inline; }
+
+.relatedPictures,
+.subGallery {
+	margin-left:10px;
+}
+
+.pictureList.isClosed > h1:before {
+	content: '▸';
+}
+
+.pictureList.isClosed > div {
+	display: none;
+}
+
+.pictureList.isOpen > div {
+	display: block;
+}
+
+.pictureList > h1,
+.pictureList > h1:before {
+	cursor: pointer;
+}
+
+.pictureList > h1:before {
+	display: inline-block;
+	width: 1em;
+}
+
+.pictureList.isOpen > h1:before {
+	content: '▾';
+}
+.relatedPictures > div {
+	background-color: #ffffcc;
+}
+.relatedPictures > h1 {
+	font-size:20px;
+	color:blue;
+	background-color: #ffffcc;
+}
+
+.subGallery > div {
+	background-color: #aaffff;
+}
+.subGallery > h1 {
+	font-size:20px;
+	color:red;
+	background-color: #aaffff;
+}
+
+.subGallery .subGallery > div {
+	background-color: #ccffff;
+}
+.subGallery .subGallery > h1 {
+	font-size:20px;
+	color:red;
+	background-color: #ccffff;
+}
+
+
+.subGallery .subGallery .subGallery > div {
+	background-color: #eeffff;
+}
+.subGallery .subGallery .subGallery > h1 {
+	font-size:20px;
+	color:red;
+	background-color: #eeffff;
+}
+
+.picture div.title {
+	widthX:500px;
+	margin-top:10px;
+}
+.pictureData input {
+	width:200px;
+}
