@@ -10,6 +10,147 @@ h1 {
 	padding: 5px 10px 5px 0;
 }
 
+.gallery .imageUploadModal.inactive {
+	visibility:hidden;
+}
+
+.imageUploadModal h1 {
+	font-size:20px;
+	text-align: center;
+}
+
+.imageUploadModal .header button {
+	left: 538px;
+    position: relative;
+}
+
+#fileInput {
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 0.1px;
+    z-index: -1;
+}
+
+#fileInputLabel {
+	color: #eeeeee;
+    border: 1px solid #888888;
+    border-radius: 4px;
+    color: black;
+    display: inline-block;
+    font-family: helvetica;
+    font-size: 12px;
+    padding: 2px 10px 1px;
+	background-color: #f4f4f4;
+}
+
+/* good centering tips: http://stackoverflow.com/questions/1776915/how-to-center-absolute-element-in-div */
+.gallery .imageUploadModal {
+    background-colorXXX: rgba(225, 240, 255, 0.8);
+	background-color: #dddde4;
+    border: 2px solid #7777cc;
+    border-radius: 10px;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 8px 5px 5px;
+    position: absolute;
+    right: 0;
+    width: 700px;
+}
+
+.gallery .imageUploadPreview {
+	margin-top:5px;
+}
+
+.gallery .imageUploadPreviewXXX {
+	margin-left: auto; 
+	margin-right: auto;
+	border:red 1px solid;
+	width: 690px;
+	padding:5px;
+	positionX:absolute;
+	left:0;
+	right:0;
+	background-color: rgba(225, 256, 225, 1);
+}
+
+.gallery .imageUploadPreview {
+    background-colorXXX: rgba(125, 155, 75, 0.3);
+	background-color: #eeffee;
+    border: 2px solid #8a6;
+    border-radius: 10px;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    right: 0;
+    width: 690px;
+}
+
+.gallery .imageUploadPreview #newName {
+	margin-left:5px;
+}
+
+.gallery .imageUploadPreview span.radio {
+	font-size:12px;
+}
+
+.gallery .imageUploadPreview span.radio span{
+	font-size:10px;
+	color:blue;
+}
+
+.gallery .imageUploadPreview .buttons {
+	margin: 5px 0;
+}
+
+.gallery .imageUploadPreview div.image,
+.gallery .imageUploadPreview div.image img{
+	margin-left: auto; 
+	margin-right: auto;
+	left:0;
+	right:0;
+	display:block;
+}
+
+.gallery .imageUploadPreview div.image {
+	overflow:scroll;
+	max-height:800px;
+}
+
+.gallery .imageUploadPreview div.image img {
+	max-widthXXX: 2000px;
+}
+
+.gallery .imageUploadPreview .dimensions span{
+	margin-right:10px;
+}
+
+.dimensions  {
+	margin: 5px 0;
+}
+
+.dimensions .frame {
+    background-color: #f4f4f4;
+    border: 2px solid #88aa88;
+    padding: 2px 2px 1px;
+	width: 33px;
+	display:inline-block;
+	height:14px;
+	border-radius: 5px;
+	position:relative;
+	top:1px;
+}
+
+.dimensions .data {
+    background-color: #eeeeee;
+    color: blue;
+    filter: blur(0.5px);
+    font-family: courier;
+}
+
 .gallery > div {
 	background-color: #ffdddd;
 	margin-top: 10px;
@@ -69,9 +210,45 @@ h1 {
 .pictureList.isClosed > div {
 	display: none;
 }
-
+/*
+.pictureList.isClosed > button {
+	display: none;
+}
+*/
 .pictureList.isOpen > div {
 	display: block;
+}
+
+/*
+.pictureList.isOpen > button {
+	display: inline;
+	width:100px;
+}
+*/
+.picture .pictureData button {
+	font-weight:bold;
+	color:#000088;
+}
+
+.picture.hasRelatedPictures .pictureData button.galleryNode, 
+.picture.hasSubGallery .pictureData button.galleryNode {
+	color:#cccccc;
+}
+
+div.gallery.clipboardPicture button,
+div.gallery.clipboardGallery button{
+	color:#cccccc !important;
+}
+
+div.gallery button.insert.pictureNode,
+div.gallery button.insert.galleryNode{
+	color:#cccccc;
+}
+
+div.gallery.clipboardPicture button.insert.pictureNode,
+div.gallery.clipboardGallery button.insert.galleryNode{
+	font-weight:bold !important;
+	color:#880000 !important;
 }
 
 .pictureList > h1,

@@ -1,0 +1,286 @@
+/Users/198101/www/cph/admin/public/index.html
+/Users/198101/www/cph/admin/public/styles.css
+/Users/198101/www/cph/admin/public/pictureData.json
+
+/Users/198101/www/cph/admin/app/App.js
+	imports ./DataContainer.js
+		imports ./Gallery_3.js
+			imports ./PictureList.js
+				imports ./Picture.js
+				Displays an expandable list of pictures or lists
+					imports ./PictureList.js
+					Displays picture, or another expandable list of pictures
+
+
+function to find child element by class name
+
+
+function getPictureDataInput(elements, name){
+	console.log(typeof(elements));
+	for (let element of elements) {
+		if (element.classList.contains(name)) {
+			return element;
+		}
+	}
+	return null;
+}
+
+var x = findChildByClass(document.getElementsByClassName('pictureData')[0].children, 'medium');
+console.log(x);
+
+=== Things that we need to be able to do ===
+add picture to gallery									Done
+add related pictures to picture							Done
+add sub-gallery to gallery								Done
+add gallery to galleries								Done
+
+delete picture from gallery								Done
+delete related pictures from picture 					Done
+delete sub-gallery from gallery							Done
+delete gallery from galleries							Done
+
+cut picture from gallery								Done
+cut picture w/sub or w/related from gallery				Done
+cut related pictures from picture 						
+cut sub-gallery from gallery							
+cut gallery from galleries								
+
+insert picture into gallery								Done
+insert picture w/sub or w/related into gallery			Done
+insert picture into top of gallery						Done
+insert picture w/sub or w/related into top of gallery	Done
+insert related pictures into picture 					
+insert sub-gallery into picture							
+insert gallery into galleries							
+
+
+upload image
+
+save changes to disk
+
+show selected image before save
+
+=== buttons and classes ===
+*** top level ***
+add new gallery			gn	display when no clipboard
+insert gallery			gn	display when clipboard picture -- yes, though it seems odd
+clear clipboard				display when clipboard
+
+*** Gallery Level ***
+add new picture			pn	display when no clipboard
+insert picture			pn	display when clipboard picture
+delete gallery			pn	display when no clipboard
+cut gallery				gn	display when no clipboard
+insert gallery			gn	display when clipboard gallery -- not sure if this is a good idea
+
+*** Picture Level ***
+save						display when data changes
+delete picture			pn	display when no clipboard
+cut picture				pn	display when no clipboard
+insert picture			pn	display when clipboard picture
+add new picture			pn	display when no clipboard
+add new rel. pictures	gn	display when no clipboard && no rel pic or subgallery
+add new subgallery		gn	display when no clipboard && no rel pic or subgallery
+insert as rel pic		gn	display when clipboard gallery && no rel pic or subgallery
+insert as subgallery	gn	display when clipboard gallery && no rel pic or subgallery
+
+cutPicture
+	set clipboardPicture
+
+cutGallery
+	set clipboardGallery
+
+cutSubGallery
+	set clipboardGallery
+
+
+
+<div class="picture">
+	<div class="title">
+		<div class="pictureSubSection">
+			<div> <img src="./galleryImages/th/speedDemons_th.jpg"> </div>
+			<div class="pictureData" data-path="0.pictures[0]">
+				<input class="title" type="text">
+				...
+			</div>
+			<div class="pictureList relatedPictures isClosed" data-path="0.pictures[0].relatedPictures">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+===========================
+
+
+plain picture node
+	imageFile
+	fileSizes
+	title
+	medium
+	description
+
+picture node with related pictures:
+	imageFile
+	fileSizes
+	title
+	subTitle
+	medium
+	relatedPictures
+		picture node(s)
+
+sub-gallery node
+	imageFile
+	fileSizes
+	title
+	description
+	pictures
+		picture node(s)
+
+
+
+
+
+
+=== Current Data ===
+
+Top level gallery:
+	galleries.auto
+
+Picture in top level gallery:	
+	galleries.auto.pictures[0]
+
+Subgallery in top level gallery
+	galleries.auto.pictures[1].pictures
+
+Related pictures in top level gallery	
+	galleries.auto.pictures[0].relatedPictures
+
+Subgallery in subgallery of top level gallery
+	galleries.auto.pictures[1].pictures[0].pictures
+
+
+
+=== New Data Structure ===
+
+Top level gallery:
+	galleries[0]
+
+Picture in top level gallery:	
+	galleries[0].pictures[0]
+
+Subgallery in top level gallery
+	galleries[0].pictures[1].pictures
+
+Related pictures in top level gallery	
+	galleries[0].pictures[0].relatedPictures
+
+Subgallery in subgallery of top level gallery
+	galleries[0].pictures[1].pictures[0].pictures
+
+Picture in subgallery in top level gallery
+	galleries[0].pictures[1].pictures[0].pictures[0]
+ 	          0, pictures,1, pictures,0
+			  0, pictures,1, pictures
+
+
+1	saveModifiedPictureNode(event){
+		while(pathArray.length && node) {
+			node = node[pathArray.shift()];
+		}
+	
+	deletePictureNode(event){
+2		while(pathArray.length > 1 && node) {
+			node = node[pathArray.shift()];
+		}
+		var index = parseInt(pathArray[0]);
+		
+3	deleteGallery(event){
+		var index;
+		while(pathArray.length > 2 && node) {
+			index = pathArray.shift();
+			node = node[index];
+		}
+		index = parseInt(pathArray.shift(), 10);
+
+2a	deleteSubGallery(event){
+		while(pathArray.length > 1 && node) {
+			node = node[pathArray.shift()];
+		}
+		var index = pathArray[0];
+		
+	
+2	cutPictureNode(event){
+		while(pathArray.length > 1 && node) {
+			node = node[pathArray.shift()];
+		}
+		var index = parseInt(pathArray[0]);
+	
+2	insertPictureNode(event){
+		while(pathArray.length > 1 && node) {
+			node = node[pathArray.shift()];
+		}
+		var index = parseInt(pathArray[0]);
+	
+2	addNewPictureNode(event){
+		while(pathArray.length > 1 && node) {
+			node = node[pathArray.shift()];
+		}
+		var index = parseInt(pathArray[0]);
+	
+2	addNewTopPictureNode(event){
+		while(pathArray.length > 1 && node) {
+			node = node[pathArray.shift()];
+		}
+		var index = pathArray[0];
+	
+4	addNewRelatedPictures(event){
+		var index;
+		while(pathArray.length && node) {
+			index = pathArray.shift();
+			node = node[index];
+		}
+		index = parseInt(index, 10);
+	
+4	addNewSubGallery(event){
+		var index;
+		while(pathArray.length && node) {
+			index = pathArray.shift();
+			node = node[index];
+		}
+		index = parseInt(index, 10);
+
+
+
+1	saveModifiedPictureNode(event){
+		while(pathArray.length && node) {
+			node = node[pathArray.shift()];
+		}
+	// get last node
+	// index not needed
+
+	
+	deletePictureNode(event){
+2		while(pathArray.length > 1 && node) {
+			node = node[pathArray.shift()];
+		}
+		var index = parseInt(pathArray[0]);
+	// get 2nd to last node
+	// index is last
+
+3	deleteGallery(event){
+		var index;
+		while(pathArray.length > 2 && node) {
+			index = pathArray.shift();
+			node = node[index];
+		}
+		index = parseInt(pathArray.shift(), 10);
+
+4	addNewSubGallery(event){
+		var index;
+		while(pathArray.length && node) {
+			index = pathArray.shift();
+			node = node[index];
+		}
+		index = parseInt(index, 10);
+
